@@ -13,18 +13,41 @@ std::string convToLower(std::string src)
 
 /** Complete the code to convert a string containing a rawWord
     to a set of words based on the criteria given in the assignment **/
+
+// note: figure out how to differentiate ISBN hyphens from punctuation hyphens
 std::set<std::string> parseStringToWords(string rawWords)
 {
+    std::set<std::string> searchWords;
+    std::string currWord;
+    rawWords = trim(rawWords);
 
+    for (unsigned long i = 0; i < rawWords.size(); i++) {
+        // checks if the current character is a punctuation mark by ASCII value
+        if ((static_cast<int>(rawWords[i]) > 32 && static_cast<int>(rawWords[i]) < 43) ||
+            static_cast<int>(rawWords[i]) > 43 && static_cast<int>(rawWords[i]) < 48) {
+                // sees if this word needs to be added to keywords
+                // otherwise, resets the current word being analyzed
+                if (currWord.size() > 1) {
+                    searchWords.insert(convToLower(currWord));
+                } else {
+                    currWord = "";
+                }
+            } 
+        else if (rawWords[i] == ' ') {
+            if (currWord.size() > 1) {
+                searchWords.insert(convToLower(currWord));
+            } else {
+                currWord = "";
+            }
+        } 
+        // otherwise keeps adding characters to the active comparison
+        else {
+            currWord += rawWords[i];
+        }
+    }
 
-
-
-
-
-
-
-
-
+    // returns the set of all keywords in the rawWords string
+    return searchWords;
 }
 
 /**************************************************
