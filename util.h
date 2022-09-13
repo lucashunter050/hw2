@@ -25,7 +25,7 @@ std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
             // insert is O(1)
             intersection.insert(*it1);
         }
-        it1++;
+        ++it1;
     }
 
     return intersection;
@@ -39,11 +39,13 @@ std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
     typename T::iterator it2 = s2.begin();
 
     // theta(n) while loop
-    while (it2 != ) {
+    while (it2 !=s2.end()) {
         // O(log(n)) find
         if (!sUnion.find(*it2)) {
             sUnion.insert(*it2);
         }
+
+        ++it2;
     }
 }
 
