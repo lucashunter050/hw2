@@ -7,8 +7,27 @@
 #include <algorithm>
 #include "product.h"
 
-#endif
-
 class Clothing : public Product {
+public:
+    Clothing(const std::string category, const std::string name, double price, 
+    int qty, const std::string size, const std::string brand);
+    ~Clothing();
 
+    virtual std::set<std::string> keywords() const = 0;
+
+    virtual bool isMatch(std::vector<std::string>& searchTerms) const;
+
+    virtual std::string displayString() const = 0;
+
+    virtual void dump(std::ostream& os) const;
+
+    // new accessors and mutators
+    std::string getBrand() const;
+    std::string getSize() const;
+
+private:
+    std::string brand_;
+    std::string size_;
 };
+
+#endif
