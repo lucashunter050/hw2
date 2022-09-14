@@ -23,6 +23,36 @@ std::string Book::getAuthor() const
 
 std::string Book::getISBN() const
 {
-    return author_;
+    return isbn_;
 }
 
+std::set<std::string> Book::keywords() const 
+{
+    std::set<std::string> bookWords;
+    bookWords.insert(isbn_);
+    bookWords.insert(author_);
+
+    std::string currWord;
+    for (unsigned long i = 0; i < name_; ++i) {
+        if (static_cast<int>(name_[i]) == 32 && (currWord.size() > 1)) {
+            bookWords += currWord;
+            currWord = "";
+        }  
+        else if (static_cast<int>(name_[i]) == 32) {
+            currWord = "";
+        }
+        else {
+            currWord += name_[i];
+        }
+    }
+
+    return bookWords;
+}
+
+bool isMatch(std::vector<std::string>& searchTerms) const
+{
+    bool isAMatch = false;
+
+
+    return isAMatch;
+}

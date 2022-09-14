@@ -28,7 +28,25 @@ std::string Clothing::getSize() const
 
 std::set<std::string> Clothing::keywords() const
 {
-    std::set<std::string> keywords;
+    std::set<std::string> clothingKeywords;
+    clothingKeywords.insert(brand_);
+    std::string currWord;
+
+    for (unsigned long i = 0; i < name_; ++i) {
+        if (static_cast<int>(name_[i]) == 32 && (currWord.size() > 1)) {
+            clothingKeywords.insert(currWord);
+            currWord = "";
+        }  
+        else if (static_cast<int>(name_[i]) == 32) {
+            currWord = "";
+        }
+        else {
+            currWord += name_[i];
+        }
+    }
+
+    return clothingKeywords;
+
 }
 
 bool Clothing::isMatch(std::vector<std::string>& searchTerms)
