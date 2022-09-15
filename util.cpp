@@ -3,6 +3,7 @@
 #include <cctype>
 #include <algorithm>
 #include "util.h"
+#include <ctype.h>
 
 using namespace std;
 std::string convToLower(std::string src)
@@ -22,9 +23,7 @@ std::set<std::string> parseStringToWords(string rawWords)
     rawWords = trim(rawWords);
 
     for (unsigned long i = 0; i < rawWords.size(); i++) {
-        // checks if the current character is a punctuation mark by ASCII value
-        if ((static_cast<int>(rawWords[i]) > 32 && static_cast<int>(rawWords[i]) < 43) ||
-            static_cast<int>(rawWords[i]) > 43 && static_cast<int>(rawWords[i]) < 48) {
+        if (ispunct(rawWords[i])) {
                 // sees if this word needs to be added to keywords
                 // otherwise, resets the current word being analyzed
                 if (currWord.size() > 1) {
@@ -33,7 +32,7 @@ std::set<std::string> parseStringToWords(string rawWords)
                     currWord = "";
                 }
             } 
-        else if (rawWords[i] == ' ') {
+        else if (isspace(rawWords[i])) {
             if (currWord.size() > 1) {
                 searchWords.insert(convToLower(currWord));
             } else {
