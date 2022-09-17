@@ -13,11 +13,11 @@ public:
     int qty, const std::string size, const std::string brand);
     ~Clothing();
 
-    virtual std::set<std::string> keywords() const = 0;
+    virtual std::set<std::string> keywords() const;
 
     virtual bool isMatch(std::vector<std::string>& searchTerms) const;
 
-    virtual std::string displayString() const = 0;
+    virtual std::string displayString() const;
 
     virtual void dump(std::ostream& os) const;
 

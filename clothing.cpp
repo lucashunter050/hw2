@@ -29,46 +29,72 @@ std::string Clothing::getSize() const
 std::set<std::string> Clothing::keywords() const
 {
     std::set<std::string> clothingKeywords;
-    clothingKeywords.insert(brand_);
     std::string currWord;
 
-    for (unsigned long i = 0; i < name_; ++i) {
-        if (static_cast<int>(name_[i]) == 32 && (currWord.size() > 1)) {
+    // adds the name keywords
+    for (unsigned long i = 0; i < name_.size(); ++i) {
+        if ((ispunct(name_[i]) && (currWord.size() > 1)) || 
+            (isspace(name_[i]) && (currWord.size() > 1))) {
             clothingKeywords.insert(currWord);
             currWord = "";
         }  
-        else if (static_cast<int>(name_[i]) == 32) {
+        else if (ispunct(name_[i]) || isspace(name_[i])) {
             currWord = "";
         }
         else {
-            currWord += name_[i];
+            currWord += tolower(name_[i]);
         }
     }
 
+    // adds the brand keywords
+    for (unsigned long i = 0; i < brand_.size(); ++i) {
+        if ((ispunct(brand_[i]) && (currWord.size() > 1)) || 
+            (isspace(brand_[i]) && (currWord.size() > 1))) {
+            clothingKeywords.insert(currWord);
+            currWord = "";
+        }  
+        else if (ispunct(brand_[i]) || isspace(brand_[i])) {
+            currWord = "";
+        }
+        else {
+            currWord += tolower(brand_[i]);
+        }
+    }
     return clothingKeywords;
 
 }
 
-bool Clothing::isMatch(std::vector<std::string>& searchTerms)
+bool Clothing::isMatch(std::vector<std::string>& searchTerms) const
 {
     bool isAMatch = false;
 
     return isAMatch;
 }
 
-std::string Clothing::displayString()
+std::string Clothing::displayString() const
 {
     std::string outputString;
+
+    outputString += name_;
+    outputString += '\n';
+    outputString += "Size: ";
+    outputString += size_;
+    outputString += " Brand: ";
+    outputString += brand_;
+    outputString += '\n';
+    outputString += price_;
+    outputString += ' ';
+    outputString += qty_;
+    outputString += " left.";
 
     return outputString;
 }
 
-void Clothing::dump(std::ostream& os)
+void Clothing::dump(std::ostream& os) const
 {
-    // dynamically cast the clothing object to the base class product and call dump
-    const Product* dummyProduct;
-    dummyProduct = dynamic_cast<const Product*>(this);
-    dummyProduct->dump();
+    // call dump with polymorphism
+    const Product* dummyProduct = dynamic_cast<const Product*>(this);
+    dummyProduct->dump(os);
 
     os << size_ << "\n" << brand_ << endl;
 }

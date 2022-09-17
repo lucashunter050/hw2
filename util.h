@@ -15,7 +15,7 @@ std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
 {
     std::set<T> intersection;
 
-    typename T::iterator it1 = s1.begin();
+    typename std::set<T>::iterator it1 = s1.begin();
     // typename T::iterator it2 = s2.begin();
 
     // while loop is theta(n)
@@ -36,15 +36,11 @@ std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
 {
     std::set<T> sUnion = s1;
     
-    typename T::iterator it2 = s2.begin();
+    typename std::set<T>::iterator it2 = s2.begin();
 
     // theta(n) while loop
-    while (it2 !=s2.end()) {
-        // O(log(n)) find
-        if (!sUnion.find(*it2)) {
-            sUnion.insert(*it2);
-        }
-
+    while (it2 !=s2.end()) {        
+        sUnion.insert(*it2);
         ++it2;
     }
 }
