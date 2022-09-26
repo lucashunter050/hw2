@@ -42,7 +42,26 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 }
 
 void MyDataStore::dump(std::ostream& ofile) {
+    ofile << "<product>\n";
+    std::set<Product*>::iterator it = products_.begin();
 
+    while (it != products_.end())
+    {
+        ofile << *it << std::endl;
+    }
+    
+    ofile << "<product>\n";
+
+    ofile << "<user>\n";
+    std::set<User*>::iterator it2 = users_.begin();
+
+    while (it2 != users_.end())
+    {
+        ofile << *it2 << std::endl;
+    }
+
+    ofile << "<user>\n";
+    
 }
 
 void MyDataStore::makeMap() {
