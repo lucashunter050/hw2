@@ -1,34 +1,31 @@
 #ifndef MDATASTORE_H
 #define MDATASTORE_H
 #include "datastore.h"
+#include "util.h"
+#include "product.h"
+#include <map>
+#include <string>
 
-class MyDataStore {
+class MyDataStore : public DataStore {
 public:
-    virtual ~DataStore() { }
+    MyDataStore();
+    ~MyDataStore() {};
 
-    /**
-     * Adds a product to the data store
-     */
-    virtual void addProduct(Product* p);
+    void addProduct(Product* p);
 
-    /**
-     * Adds a user to the data store
-     */
-    virtual void addUser(User* u);
+    void addUser(User* u);
 
-    /**
-     * Performs a search of products whose keywords match the given "terms"
-     *  type 0 = AND search (intersection of results for each term) while
-     *  type 1 = OR search (union of results for each term)
-     */
-    virtual std::vector<Product*> search(std::vector<std::string>& terms, int type);
+    std::vector<Product*> search(std::vector<std::string>& terms, int type);
 
-    /**
-     * Reproduce the database file from the current Products and User values
-     */
-    virtual void dump(std::ostream& ofile);
+    void dump(std::ostream& ofile);
 
+    void makeMap();
 
+private:
+    std::set<User*> users_;
+    std::set<Product*> products_;
+
+    std::map<std::string, Product*> keywordMapping; 
 };
 
 #endif
