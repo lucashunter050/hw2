@@ -25,7 +25,8 @@ private:
     std::set<User*> users_;
     std::set<Product*> products_;
 
-    std::map<std::string, Product*> keywordMapping; 
+    // store a mapping between the keywords and the matching products
+    std::map<std::string, std::set<Product*>> keywordMapping; 
 };
 
 #endif
