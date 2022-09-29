@@ -2,7 +2,6 @@
 #define USER_H
 #include <iostream>
 #include <string>
-#include <queue>
 
 /**
  * Implements User functionality and information storage
@@ -19,15 +18,10 @@ public:
     void deductAmount(double amt);
     virtual void dump(std::ostream& os);
 
-    // new methods
-    void addToCart();
-
 private:
     std::string name_;
     double balance_;
     int type_;
 
-    // new data member
-    std::queue<Product*> cart_;
 };
 #endif

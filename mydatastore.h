@@ -5,6 +5,7 @@
 #include "product.h"
 #include <map>
 #include <string>
+#include <queue>
 
 class MyDataStore : public DataStore {
 public:
@@ -17,16 +18,24 @@ public:
 
     std::vector<Product*> search(std::vector<std::string>& terms, int type);
 
+    void addToCart(std::string username, Product* toAdd);
+
+    void viewCart(std::string username);
+
+    void buyCart(std::string username);
+
     void dump(std::ostream& ofile);
 
-    void makeMap();
-
 private:
-    std::set<User*> users_;
+    std::map<std::string, User*> users_map_;
     std::set<Product*> products_;
 
     // store a mapping between the keywords and the matching products
     std::map<std::string, std::set<Product*>> keywordMapping; 
+
+    // store the user carts
+    // used a deque because it supports iterators and I can treat it as FIFO
+    std::map<User*, std::deque<Product* >> cart_;
 };
 
 #endif

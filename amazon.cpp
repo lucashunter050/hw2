@@ -101,14 +101,26 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
-            else if (cmd == "ADD") {
 
+            // ADD username hits_index
+            else if (cmd == "ADD") {
+                string add_username;
+                int hit_index = 0;
+                ss >> add_username;
+                ss >> hit_index;
+
+                ds.addToCart(add_username, hits.at(hit_index));
             }
             else if (cmd == "VIEWCART") {
+                string view_username;
+                ss >> view_username;
 
+                ds.viewCart(view_username);
             }
             else if (cmd == "BUYCART") {
-                
+                string buy_username;
+                ss >> buy_username;
+                ds.buyCart(buy_username);
             }
             else {
                 cout << "Unknown command" << endl;

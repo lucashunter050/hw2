@@ -22,7 +22,7 @@ void MyDataStore::addProduct(Product* p) {
 }
 
 void MyDataStore::addUser(User* u) {
-    users_.insert(u);
+    users_map_.insert({u->getName(), u});
 }
 
 std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int type) {
@@ -64,6 +64,41 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
     return matches;
 }
 
+void MyDataStore::addToCart(std::string username, Product* toAdd) {
+    cart_.at(users_map_.at(username)).push_back(toAdd);
+}
+
+void MyDataStore::viewCart(std::string username) {
+    if (users_map_.find(username) == users_map_.end()) {
+        std::cout << "Invalid username" << std::endl;
+        return;
+    }
+    std::deque<Product*>::iterator it = cart_.at(users_map_.at(username)).begin();
+
+    int index = 0;
+    while (it != cart_.at(users_map_.at(username)).end()) {
+        std::cout << index << ": ";
+        std::cout << (*it)->displayString();
+        ++index;
+        ++it;
+    }
+    
+}
+
+void MyDataStore::buyCart(std::string username) {
+    std::deque<Product*>::iterator it = cart_.at(users_map_.at(username)).begin();
+
+    while (it != cart_.at(users_map_.at(username)).end()) {
+        if ((*it)->getQty() && (users_map_.at(username)->getBalance())) {
+            --(*it);
+            users_map_.at(username)->deductAmount((*it)->getPrice());
+            std::deque<Product*>::iterator temp = it;
+            cart_.at(users_map_.at(username)).erase(temp);
+            ++it;
+        }
+    }
+}
+
 void MyDataStore::dump(std::ostream& ofile) {
     ofile << "<products>\n";
     std::set<Product*>::iterator it = products_.begin();
@@ -76,36 +111,13 @@ void MyDataStore::dump(std::ostream& ofile) {
     ofile << "</products>\n";
 
     ofile << "<users>\n";
-    std::set<User*>::iterator it2 = users_.begin();
+    std::map<std::string, User*>::iterator it2 = users_map_.begin();
 
-    while (it2 != users_.end())
+    while (it2 != users_map_.end())
     {
-        ofile << *it2 << std::endl;
+        ofile << it2->second << std::endl;
     }
 
     ofile << "</users>\n";
     
 }
-
-/*
-void MyDataStore::makeMap() {
-    // note: probably does not work b/c there can probably be identical keys to diff products
-    keywordMapping.clear();
-    std::set<Product*>::iterator it = products_.begin();
-
-    while (it != products_.end()) {
-        std::set<std::string> keywordsSet = (*it)->keywords();
-        std::set<std::string>::iterator it2 = keywordsSet.begin();
-        while (it2 != keywordsSet.end()) {
-            std::pair<std::string, Product*> insertPair;
-            insertPair.first = *it2;
-            insertPair.second = *it;
-            keywordMapping.insert(insertPair);
-            ++it2;
-        }
-
-        ++it;
-    
-    }
-
-}*/
