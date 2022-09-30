@@ -9,8 +9,8 @@
 
 class MyDataStore : public DataStore {
 public:
-    MyDataStore();
-    ~MyDataStore() {};
+    MyDataStore() {}
+    ~MyDataStore() {}
 
     void addProduct(Product* p);
 

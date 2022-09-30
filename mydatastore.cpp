@@ -3,21 +3,15 @@
 
 void MyDataStore::addProduct(Product* p) {
     products_.insert(p);
-    // this->makeMap();
 
-    std::set<std::string>::iterator it1 = p->keywords().begin();
-    std::set<Product*> addSet;
-    while (it1 != p->keywords().end()) {
-        // see if key is already in list, if it is, just add the new 
-        // product to the existing set for the key
-        if (keywordMapping.find(*it1) != keywordMapping.end()) {
-            keywordMapping.find(*it1)->second.insert(p);
+    for (std::string itr1: p->keywords()) {
+        if (keywordMapping.find(itr1) != keywordMapping.end()) {
+            keywordMapping.find(itr1)->second.insert(p);
         } else {
-            addSet.insert(p);
-            keywordMapping.insert({*it1, addSet});
+            std::set<Product*> addSet2;
+            addSet2.insert(p);
+            keywordMapping.insert({itr1, addSet2});
         }
-        addSet.clear();
-        ++it1;
     }
 }
 
