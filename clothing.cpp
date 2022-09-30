@@ -75,6 +75,17 @@ std::string Clothing::displayString() const
 {
     std::string outputString;
 
+    int priceDecimalPointIndex = 0;
+    string priceStr = to_string(price_);
+
+    for (int i = 0; i < priceStr.size(); ++i) {
+        if (priceStr[i] == '.') {
+            priceDecimalPointIndex = i;
+            break;
+        } 
+    }
+
+
     outputString += name_;
     outputString += '\n';
     outputString += "Size: ";
@@ -82,9 +93,10 @@ std::string Clothing::displayString() const
     outputString += " Brand: ";
     outputString += brand_;
     outputString += '\n';
-    outputString += price_;
+    outputString += priceStr.substr(0, priceDecimalPointIndex);
+    outputString += priceStr.substr(priceDecimalPointIndex, 3);
     outputString += ' ';
-    outputString += qty_;
+    outputString += to_string(qty_);
     outputString += " left.";
 
     return outputString;

@@ -74,6 +74,16 @@ bool Book::isMatch(std::vector<std::string>& searchTerms) const
 std::string Book::displayString() const {
     std::string outputString;
 
+    int priceDecimalPointIndex = 0;
+    string priceStr = to_string(price_);
+
+    for (int i = 0; i < priceStr.size(); ++i) {
+        if (priceStr[i] == '.') {
+            priceDecimalPointIndex = i;
+            break;
+        } 
+    }
+
     outputString += name_;
     outputString += '\n';
     outputString += "Author: ";
@@ -81,9 +91,10 @@ std::string Book::displayString() const {
     outputString += " ISBN: ";
     outputString += isbn_;
     outputString += '\n';
-    outputString += price_;
+    outputString += priceStr.substr(0, priceDecimalPointIndex);
+    outputString += priceStr.substr(priceDecimalPointIndex, 3);
     outputString += ' ';
-    outputString += qty_;
+    outputString += to_string(qty_);
     outputString += " left.";
 
     return outputString;
