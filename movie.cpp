@@ -85,7 +85,7 @@ std::string Movie::displayString() const
     int priceDecimalPointIndex = 0;
     string priceStr = to_string(price_);
 
-    for (int i = 0; i < priceStr.size(); ++i) {
+    for (size_t i = 0; i < priceStr.size(); ++i) {
         if (priceStr[i] == '.') {
             priceDecimalPointIndex = i;
             break;

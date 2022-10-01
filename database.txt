@@ -47,9 +47,16 @@ The Handmaiden DVD
 2
 Thriller
 R
+clothing
+Top Hat
+19.99
+5
+Large
+HatsRUs
 </products>
 <users>
 aturing 100.00 0
 johnvn 50.00 1
 adal 120.00 1
+lucas 1000.00 0
 </users>

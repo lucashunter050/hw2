@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
                 ss >> add_username;
                 ss >> hit_index;
 
-                if (hit_index > hits.size() || hit_index <= 0) {
+                if (hit_index > static_cast<int>(hits.size()) || hit_index <= 0) {
                     std::cout << "Invalid request" << std::endl;
                 } else {
                     ds.addToCart(add_username, hits.at(hit_index - 1));
