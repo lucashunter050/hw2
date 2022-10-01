@@ -1,1 +1,11 @@
 .vscode
+a.out
+a.out.dSYM/
+database3.txt
+database4.txt
+database5.txt
+database6.txt
+databasefinal.txt
+databasemake.txt
+databasevalgrind.txt
+maptest.cpp
