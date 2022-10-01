@@ -47,6 +47,12 @@ std::set<std::string> Book::keywords() const
         }
     }
 
+    // check if there's any leftover string that needs to be added
+    if (currWord.size() > 1) {
+        bookWords.insert(currWord);
+        currWord = "";
+    }
+
     for (unsigned long i = 0; i < author_.size(); ++i) {
         if ((ispunct(author_[i]) && (currWord.size() > 1)) || 
             (isspace(author_[i]) && (currWord.size() > 1))) {
@@ -59,6 +65,12 @@ std::set<std::string> Book::keywords() const
         else {
             currWord += tolower(author_[i]);
         }
+    }
+
+    // check if there's any leftover string that needs to be added
+    if (currWord.size() > 1) {
+        bookWords.insert(currWord);
+        currWord = "";
     }
 
     return bookWords;
@@ -101,9 +113,6 @@ std::string Book::displayString() const {
 }
 
 void Book::dump(std::ostream& os) const {
-    // call dump with polymorphism
-    const Product* dummyProduct = dynamic_cast<const Product*>(this);
-    dummyProduct->dump(os);
-
+    os << category_ << "\n" << name_ << "\n" << price_ << "\n" << qty_ << endl;
     os << isbn_ << "\n" << author_ << endl;
 }

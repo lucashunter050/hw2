@@ -46,6 +46,12 @@ std::set<std::string> Clothing::keywords() const
         }
     }
 
+    // check if there's any leftover string that needs to be added
+    if (currWord.size() > 1) {
+        clothingKeywords.insert(currWord);
+        currWord = "";
+    }
+
     // adds the brand keywords
     for (unsigned long i = 0; i < brand_.size(); ++i) {
         if ((ispunct(brand_[i]) && (currWord.size() > 1)) || 
@@ -60,6 +66,13 @@ std::set<std::string> Clothing::keywords() const
             currWord += tolower(brand_[i]);
         }
     }
+
+    // check if there's any leftover string that needs to be added
+    if (currWord.size() > 1) {
+        clothingKeywords.insert(currWord);
+        currWord = "";
+    }
+
     return clothingKeywords;
 
 }
@@ -104,9 +117,7 @@ std::string Clothing::displayString() const
 
 void Clothing::dump(std::ostream& os) const
 {
-    // call dump with polymorphism
-    const Product* dummyProduct = dynamic_cast<const Product*>(this);
-    dummyProduct->dump(os);
+    os << category_ << "\n" << name_ << "\n" << price_ << "\n" << qty_ << endl;
 
     os << size_ << "\n" << brand_ << endl;
 }

@@ -17,12 +17,36 @@ Men's Fitted Shirt
 25
 Medium
 J. Crew
+clothing
+Women's Stone Roses Shirt
+29.99
+10
+Small
+H&M
+clothing
+Men's Tan Suit
+250.00
+10
+Large
+SuitCo
 movie
 Hidden Figures DVD
 17.99
 1
 Drama
 PG
+movie
+Gone Girl DVD
+17.99
+3
+Drama
+R
+movie
+The Handmaiden DVD
+17.99
+2
+Thriller
+R
 </products>
 <users>
 aturing 100.00 0

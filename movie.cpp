@@ -31,11 +31,23 @@ std::set<std::string> Movie::keywords() const
 {
     std::set<std::string> movieWords;
 
-    movieWords.insert(rating_);
-    movieWords.insert(genre_);
-
     std::string currWord;
-    for (unsigned long i = 0; i < name_.size(); ++i) {
+
+    // make the genre and rating lowercase
+    for (unsigned i = 0; i < rating_.size(); ++i) {
+        currWord += tolower(rating_[i]);
+    }
+    movieWords.insert(currWord);
+    currWord = "";
+
+    for (unsigned i = 0; i < genre_.size(); ++i) {
+        currWord += tolower(genre_[i]);
+    }
+    movieWords.insert(currWord);
+    currWord = "";
+
+    
+    for (unsigned i = 0; i < name_.size(); ++i) {
         if ((ispunct(name_[i]) && (currWord.size() > 1)) || 
             (isspace(name_[i]) && (currWord.size() > 1))) {
             movieWords.insert(currWord);
@@ -47,6 +59,12 @@ std::set<std::string> Movie::keywords() const
         else {
             currWord += tolower(name_[i]);
         }
+    }
+
+    // check if there's any leftover string that needs to be added
+    if (currWord.size() > 1) {
+        movieWords.insert(currWord);
+        currWord = "";
     }
     
     return movieWords;
@@ -92,9 +110,6 @@ std::string Movie::displayString() const
 
 void Movie::dump(std::ostream& os) const
 {
-    // call dump with polymorphism
-    const Product* dummyProduct = dynamic_cast<const Product*>(this);
-    dummyProduct->dump(os);
-
+    os << category_ << "\n" << name_ << "\n" << price_ << "\n" << qty_ << endl;
     os << genre_ << "\n" << rating_ << endl;
 }

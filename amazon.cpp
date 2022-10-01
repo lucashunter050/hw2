@@ -105,11 +105,15 @@ int main(int argc, char* argv[])
             // ADD username hits_index
             else if (cmd == "ADD") {
                 string add_username;
-                int hit_index = 0;
+                int hit_index = -1;
                 ss >> add_username;
                 ss >> hit_index;
 
-                ds.addToCart(add_username, hits.at(hit_index));
+                if (hit_index > hits.size() || hit_index <= 0) {
+                    std::cout << "Invalid request" << std::endl;
+                } else {
+                    ds.addToCart(add_username, hits.at(hit_index - 1));
+                }
             }
             else if (cmd == "VIEWCART") {
                 string view_username;

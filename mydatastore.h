@@ -10,7 +10,17 @@
 class MyDataStore : public DataStore {
 public:
     MyDataStore() {}
-    ~MyDataStore() {}
+
+    // destructor - must deallocate all products and users here when the
+    // object is destroyed
+    ~MyDataStore() {
+        for (Product* prod : products_) {
+            delete prod;
+        }
+        for (std::pair<std::string, User*> toDelete : users_map_) {
+            delete toDelete.second;
+        }
+    }
 
     void addProduct(Product* p);
 
