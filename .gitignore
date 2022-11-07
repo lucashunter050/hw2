@@ -9,3 +9,5 @@ databasefinal.txt
 databasemake.txt
 databasevalgrind.txt
 maptest.cpp
+.clang-format
+.clang-tidy
