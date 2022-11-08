@@ -110,6 +110,8 @@ std::string Movie::displayString() const
 
 void Movie::dump(std::ostream& os) const
 {
+    os << std::fixed;
+    os << std::setprecision(2);
     os << category_ << "\n" << name_ << "\n" << price_ << "\n" << qty_ << endl;
     os << genre_ << "\n" << rating_ << endl;
 }

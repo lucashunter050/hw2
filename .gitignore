@@ -11,3 +11,5 @@ databasevalgrind.txt
 maptest.cpp
 .clang-format
 .clang-tidy
+hw2_tests.tar.gz
+hw2_tests/

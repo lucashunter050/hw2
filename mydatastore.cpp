@@ -82,7 +82,8 @@ void MyDataStore::viewCart(std::string username) {
 
     // loops through the cart deque and displays the items in the cart
     while (it != cart_.at(users_map_.at(username)).end()) {
-        std::cout << index << ": ";
+        // std::cout << index << ": ";
+        std::cout << "Item " << index + 1 << std::endl;
         std::cout << (*it)->displayString();
         std::cout << std::endl;
         ++index;
@@ -97,7 +98,7 @@ void MyDataStore::buyCart(std::string username) {
     // deque equal to that
 
     if (users_map_.find(username) == users_map_.end()) {
-        std::cout << "Invalid request" << std::endl;
+        std::cout << "Invalid username" << std::endl;
         return;
     }
 

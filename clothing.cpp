@@ -117,7 +117,8 @@ std::string Clothing::displayString() const
 
 void Clothing::dump(std::ostream& os) const
 {
+    os << std::fixed;
+    os << std::setprecision(2);
     os << category_ << "\n" << name_ << "\n" << price_ << "\n" << qty_ << endl;
-
     os << size_ << "\n" << brand_ << endl;
 }
